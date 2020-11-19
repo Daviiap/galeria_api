@@ -8,6 +8,7 @@ async function create(data) {
       return null
     }
 
+    //CORRIGI!
     const { id, name, email, age, gender } = await User.create(data)
 
     return { id, name, email, age, gender }
