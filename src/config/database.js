@@ -1,7 +1,5 @@
 require('dotenv').config()
 
-console.log(process.env.DB_USERNAME)
-
 const database = {
   development: {
     env: 'development',
