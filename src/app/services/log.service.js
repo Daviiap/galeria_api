@@ -2,7 +2,7 @@
 const filesystem = require('fs')
 const path = require('path')
 
-// Services
+// Utils
 const DateUtil = require('./util.service').date
 
 /**
