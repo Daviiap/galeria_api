@@ -1,12 +1,14 @@
 require('dotenv').config()
 
+console.log(process.env.DB_USERNAME)
+
 const database = {
   development: {
     env: 'development',
-    host: process.env.DB_HOST || 'localhost',
-    username: process.env.DB_USERNAME || 'root',
-    password: process.env.DB_PASSWORD || 'root',
-    database: process.env.DB_NAME || 'galeria',
+    host: process.env.LOCAL_DB_HOST || 'localhost',
+    username: process.env.LOCAL_DB_USERNAME || 'root',
+    password: process.env.LOCAL_DB_PASSWORD || 'root',
+    database: process.env.LOCAL_DB_NAME || 'galeria',
     dialect: 'postgres',
     options: {
       dialect: 'postgres',
