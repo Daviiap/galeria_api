@@ -8,9 +8,9 @@ async function create(data) {
       return null
     }
 
-    const { id, name, email, age, gender } = await User.create(data)
+    const { id, name, email, age, gender, instagram } = await User.create(data)
 
-    return { id, name, email, age, gender }
+    return { id, name, email, age, gender, instagram }
   } catch (error) {
     throw error
   }
