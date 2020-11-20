@@ -46,5 +46,23 @@ module.exports = [
       }
       return false
     })
-    .withMessage('invalid value for gender')
+    .withMessage('invalid value for gender'),
+  body('password')
+    .notEmpty()
+    .withMessage('password is required')
+    .isString()
+    .withMessage('password must be an string')
+    .isLength({ min: 8 })
+    .withMessage('password must have at least 8 characters')
+    .custom((password) => {
+      const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%*()_+^&}{:;?.])(?:([0-9a-zA-Z])(?!\1)|[!@#$%;*(){}_+^&]){6,}$/
+      if (!regex.test(password)) {
+        return false
+      }
+
+      return true
+    })
+    .withMessage(
+      'password must contain ate least a letter, a number and a special character'
+    )
 ]
