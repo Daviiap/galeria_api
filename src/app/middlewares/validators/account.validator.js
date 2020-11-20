@@ -2,9 +2,9 @@ const { body } = require('express-validator')
 
 const genderEnum = require('../../enums/gender.enum')
 
-module.exports = [
+const create = [
   body('name')
-    .notEmpty()
+    .exists()
     .withMessage('name is required')
     .isString()
     .withMessage('name with invalid format')
@@ -18,8 +18,14 @@ module.exports = [
       }
       return true
     }),
-  body('email').isEmail().withMessage('invalid email format'),
+  body('email')
+    .exists()
+    .withMessage('email is required')
+    .isEmail()
+    .withMessage('invalid email format'),
   body('age')
+    .exists()
+    .withMessage('age is required')
     .isNumeric()
     .withMessage('age must be an number')
     .isInt()
@@ -34,6 +40,8 @@ module.exports = [
       return true
     }),
   body('gender')
+    .exists()
+    .withMessage('gender is required')
     .isString()
     .withMessage('gender must be an String')
     .custom((gender) => {
@@ -48,7 +56,7 @@ module.exports = [
     })
     .withMessage('invalid value for gender'),
   body('password')
-    .notEmpty()
+    .exists()
     .withMessage('password is required')
     .isString()
     .withMessage('password must be an string')
@@ -64,5 +72,68 @@ module.exports = [
     })
     .withMessage(
       'password must contain ate least a letter, a number and a special character'
-    )
+    ),
+  body('instagram')
+    .optional()
+    .isString()
+    .withMessage('instagram must be an string')
 ]
+
+const update = [
+  body('password').exists().withMessage('password is required'),
+  body('name')
+    .optional()
+    .isString()
+    .withMessage('name with invalid format')
+    .isLength({ min: 5 })
+    .withMessage('name must have more than 5 characters')
+    .custom((name) => {
+      const nameTest = name.split(' ')
+
+      if (nameTest.isLength < 2) {
+        throw new Error('you need to insert at least one last name')
+      }
+      return true
+    }),
+  body('gender')
+    .optional()
+    .isString()
+    .withMessage('gender must be an String')
+    .custom((gender) => {
+      if (
+        gender === genderEnum.MALE ||
+        gender === genderEnum.FEMALE ||
+        gender === genderEnum.OTHER
+      ) {
+        return true
+      }
+      return false
+    })
+    .withMessage('invalid value for gender'),
+  body('newPassword')
+    .optional()
+    .isString()
+    .withMessage('password must be an string')
+    .isLength({ min: 8 })
+    .withMessage('password must have at least 8 characters')
+    .custom((password) => {
+      const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%*()_+^&}{:;?.])(?:([0-9a-zA-Z])(?!\1)|[!@#$%;*(){}_+^&]){6,}$/
+      if (!regex.test(password)) {
+        return false
+      }
+
+      return true
+    })
+    .withMessage(
+      'password must contain ate least a letter, a number and a special character'
+    ),
+  body('instagram')
+    .optional()
+    .isString()
+    .withMessage('instagram must be an string')
+]
+
+module.exports = {
+  create,
+  update
+}

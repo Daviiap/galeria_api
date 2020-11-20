@@ -4,12 +4,12 @@ async function login(email, password) {
   try {
     const user = await User.findOne({ where: { email } })
     if (!user) {
-      return null
+      return { error: 'user does not exist' }
     }
 
     const validPassword = await user.checkPassword(password)
     if (!validPassword) {
-      return null
+      return { error: 'invalid password' }
     }
 
     const { id, name } = user

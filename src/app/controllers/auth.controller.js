@@ -9,7 +9,16 @@ const login = async (req, res) => {
     log.info('Iniciando login', { email })
 
     const result = await service.login(email, password)
-    if (!result) return http.notFound(res, 'E-mail ou senha inválido(a)')
+
+    if (result.error) {
+      log.warn('E-mail ou senha inválido(a)', { email, password })
+
+      if (result.error === 'user does not exist') {
+        return http.notFound(res, { message: 'E-mail inválido, não existe usuário com este e-mail cadastrado', error: result.error })
+      } else if (result.error === 'invalid password') {
+        return http.badRequest(res, { message: 'Senha inválida', error: result.error })
+      }
+    }
 
     log.info('Login finalizado', { email })
 
