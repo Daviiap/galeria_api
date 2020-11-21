@@ -9,5 +9,5 @@ const logService = require('./app/services/log.service')
 const { host, port } = environment.API
 
 app.listen(port, () => {
-    logService.log(`DuuO API rodando em http://${host}:${port}/`);
+  logService.log(`API rodando em http://${host}:${port}/`);
 })
