@@ -8,6 +8,6 @@ const logService = require('./app/services/log.service')
 
 const { url } = environment.API
 
-app.listen(port, host, () => {
+app.listen(url, () => {
   logService.log(`API rodando em ${url}/`)
 })
