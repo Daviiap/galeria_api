@@ -3,8 +3,7 @@ require('dotenv').config()
 const environment = {
   development: {
     API: {
-      host: process.env.API_URL || 'localhost',
-      port: process.env.API_PORT || 3001
+      url: process.env.API_URL || 'http://localhost:3002'
     },
     JWT: {
       secret: process.env.JWT_SECRET,
@@ -14,8 +13,7 @@ const environment = {
 
   staging: {
     API: {
-      host: process.env.API_URL,
-      port: process.env.API_PORT
+      url: process.env.API_URL,
     },
     JWT: {
       secret: process.env.JWT_SECRET,
@@ -25,8 +23,7 @@ const environment = {
 
   production: {
     API: {
-      host: process.env.API_URL,
-      port: process.env.API_PORT
+      url: process.env.API_URL,
     },
     JWT: {
       secret: process.env.JWT_SECRET,
