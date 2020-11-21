@@ -4,7 +4,7 @@ const environment = {
   development: {
     API: {
       host: process.env.API_URL || 'http://localhost',
-      port: process.env.API_PORT || 3002
+      port: process.env.PORT || 3002
     },
     JWT: {
       secret: process.env.JWT_SECRET,
@@ -15,7 +15,7 @@ const environment = {
   staging: {
     API: {
       host: process.env.API_URL,
-      port: process.env.API_PORT
+      port: process.env.PORT
     },
     JWT: {
       secret: process.env.JWT_SECRET,
@@ -26,7 +26,7 @@ const environment = {
   production: {
     API: {
       host: process.env.API_URL,
-      port: process.env.API_PORT
+      port: process.env.PORT
     },
     JWT: {
       secret: process.env.JWT_SECRET,
