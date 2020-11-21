@@ -72,15 +72,17 @@ function write(message) {
   // A mensagem também deve ser exibida no console
   log(message)
 
-  filesystem.appendFileSync(
-    path.resolve('logs', `${DateUtil.getDate()}.txt`),
-    `${message}\n`,
-    (error) => {
-      if (error) {
-        log(error)
+  if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'staging') {
+    filesystem.appendFileSync(
+      path.resolve('logs', `${DateUtil.getDate()}.txt`),
+      `${message}\n`,
+      (error) => {
+        if (error) {
+          log(error)
+        }
       }
-    }
-  )
+    )
+  }
 }
 
 /**
